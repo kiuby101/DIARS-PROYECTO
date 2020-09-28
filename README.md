@@ -1,1 +1,1 @@
-# DIARS-sem02
+# DIARS-PROYECTO
