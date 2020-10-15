@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="layouts/layout::head">
+	<meta charset="UTF-8" />
+</head>
+<body>
+
+	<header th:replace="layouts/layout::header"></header>
+	<h1 th:text="${Titulo}"></h1>
+	<table>
+		<thead>
+			<tr>
+				<th>codigo</th>
+				<th>nombre</th>
+				<th>marca</th>
+				<th>precio</th>
+				<th>stock</th>
+				<th>tipoProd</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="productos: ${producto}">
+				<td th:text="${productos.codigo}"> </td>
+				<td th:text="${productos.nombre}"> </td>
+				<td th:text="${productos.marca}"> </td>
+				<td th:text="${productos.precio}"> </td>
+				<td th:text="${productos.stock}"> </td>
+				<td th:text="${productos.tipoProd.nombre}"> </td>
+			</tr>
+		</tbody>
+
+	</table>
+
+
+
+</body>
+
+</html>
