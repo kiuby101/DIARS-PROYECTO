@@ -1,5 +1,5 @@
 INSERT INTO clientes(id,nombre,apellido,email,create_at) VALUES(1,'Andres','Guzman','profesor@gmail.com','2017-08-08');
-INSERT INTO clientes(id,nombre,apellido,email,create_at) VALUES(2,'Andres','Saldana','andresr@gmail.com','2017-08-08');
+INSERT INTO clientes(id,nombre,apellido,email,create_at) VALUES(2,'Andres','Torres','andresr@gmail.com','2017-08-08');
 
 INSERT INTO detalle_productos(id,detalle) VALUES(1,"erkoqwkro - qpqwekrpokwe-qwer14213123-3431423qewrqw-pqwoerkpowke-pqkweork");
 INSERT INTO detalle_productos(id,detalle) VALUES(2,"erkoqwkro - qpqwekrpokwe-rpwqkeropwepkor-qpwekropqwekr-pqwoerkpowke-pqkweork");
