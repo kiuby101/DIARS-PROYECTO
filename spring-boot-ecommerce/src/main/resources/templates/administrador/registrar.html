@@ -8,7 +8,7 @@
 	<section class="formularioReg">
 		<h1 th:text="${titulo}" class="mb-4"></h1>
 		<div class="registro">
-			<form th:action="@{/administracion/form}" th:object="${productos}" method="post">
+			<form th:action="@{/administrador/registrar}" th:object="${productos}" method="post">
 				<div class="form-row">
 					<div class="col-6 mb-3">
 						<div class="form-group">
@@ -34,13 +34,13 @@
 							<input type="text" name="" id="" class="form-control" th:field="*{precio}" placeholder="precio">
 						</div>
 					</div>
-					<div class="col-12 mb-3">
+					<div class="col-6 mb-3">
 						<div class="form-group">
 							<label for="stock">Stock</label>
 							<input type="text" name="" id="" class="form-control" th:field="*{stock}" >
 						</div>
 					</div>
-					<div class="col-12 mb-3">
+					<div class="col-6 mb-3">
 						<div class="form-group">
 							<label for="">Selecciona el tipo de producto</label>
 							<select name="" id="" class="form-control"  th:field="*{tipoProd.id}"  >
@@ -60,10 +60,11 @@
 							<input type="text" name="" id="" th:field="*{detalleProducto.detalle}" class="form-control"  placeholder="Detalle">
 						</div>
 					</div>
+					<br>
+					<input type="hidden" th:field="*{id}">
 					<div class="col-12 mt-3 d-flex justify-content-center">
-						<input type="submit" class="btn btn-primary" th:value="${'enviar'}">
+						<input type="submit" class="btn btn-primary" >
 					</div>
-					
 				</div>
 			</form>
 		</div>

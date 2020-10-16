@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
@@ -37,7 +38,7 @@ public class ProductoDaoImpl implements IProductoDao {
 	}
 
 	@Override
-	public Producto BuscarUno(int id) {
+	public Producto BuscarUno(Long id) {
 		// TODO Auto-generated method stub
 		return emProd.find(Producto.class,id);
 	}
@@ -46,6 +47,13 @@ public class ProductoDaoImpl implements IProductoDao {
 	public void GuardarDetalle(DetalleProducto detalle) {
 		// TODO Auto-generated method stub
 		emProd.persist(detalle);
+	}
+
+	@Override
+	@Transactional
+	public void eliminar(Long id) {
+	Producto producto = BuscarUno(id);
+	emProd.remove(producto);
 	}
 
 }

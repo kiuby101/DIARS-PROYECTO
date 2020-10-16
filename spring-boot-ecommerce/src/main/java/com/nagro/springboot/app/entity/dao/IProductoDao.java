@@ -11,7 +11,9 @@ public interface IProductoDao {
 	
 	public void GuardarProd(Producto producto);
 	
-	public Producto BuscarUno(int id);
+	public Producto BuscarUno(Long id);
 	
 	public void GuardarDetalle(DetalleProducto detalle);
+	
+	public void eliminar(Long id);
 }

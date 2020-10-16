@@ -9,12 +9,14 @@ import org.springframework.dao.DeadlockLoserDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.nagro.springboot.app.entity.dao.IProductoDao;
 import com.nagro.springboot.app.model.entity.DetalleProducto;
 import com.nagro.springboot.app.model.entity.Producto;
 import com.nagro.springboot.app.model.entity.TipoProducto;
@@ -66,6 +68,14 @@ public class ProductoController {
 	@ModelAttribute("listTipProducto")
 	public List<TipoProducto> tipoProducto(){
 		 return tipoProductoService.findAll();
+	}
+	
+	@RequestMapping("/eliminar/{id}")
+	public String eliminar(@PathVariable(value="id")Long id) {
+		if(id>0) {
+			productoService.eliminar(id);
+		}
+		return "redirect:administrador/listarProductos";
 	}
 	
 }

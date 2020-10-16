@@ -33,7 +33,7 @@ public class ProductoServiceImpl implements IProductoService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Producto BuscarUno(int id) {
+	public Producto BuscarUno(Long id) {
 		// TODO Auto-generated method stub
 		return productoDao.BuscarUno(id);
 	}
@@ -43,6 +43,12 @@ public class ProductoServiceImpl implements IProductoService {
 	public void GuardarDetalle(DetalleProducto detalle) {
 		// TODO Auto-generated method stub
 		productoDao.GuardarDetalle(detalle);
+	}
+
+	@Override
+	@Transactional
+	public void eliminar(Long id) {
+	productoDao.eliminar(id);
 	}
 
 }

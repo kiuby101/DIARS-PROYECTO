@@ -12,3 +12,5 @@ INSERT INTO tipo_productos(id,nombre) VALUES(4,"camaras wifi");
 INSERT INTO tipo_productos(id,nombre) VALUES(5,"camaras");
 INSERT INTO tipo_productos(id,nombre) VALUES(6,"mouse");
 INSERT INTO tipo_productos(id,nombre) VALUES(7,"mouse gamer");
+
+INSERT INTO administradores(id,mail,password) VALUES(1,"root@root.com","root");
