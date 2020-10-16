@@ -59,6 +59,7 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\Users\Abraham\Documents\GitHub\DIARS-PROYECTO\spring-boot-ecommerce"/>
 			<item value="C:\Users\Abraham\Desktop\spring-boot-ecommerce"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
