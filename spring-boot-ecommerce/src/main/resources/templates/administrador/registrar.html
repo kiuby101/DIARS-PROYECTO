@@ -6,69 +6,88 @@
 	<header th:replace="layouts/layout::header"></header>
 
 	<div class="container">
-		<h1 th:text="${titulo}" class="mb-4"></h1>
-		<div class="registro">
-			<form th:action="@{/administracion/form}" th:object="${productos}" method="post">
-				<input type="hidden" name="" id="" class="form-control" th:field="*{id}"  >
-				<div class="form-row">
-					<div class="col-6 mb-3">
-						<div class="form-group">
-							<label for="nombre">Codigo de Producto:</label>
-							<input type="text" name="" id="" class="form-control" th:field="*{codigo}" >
-						</div>
-					</div>
-					<div class="col-6 mb-3">
-						<div class="form-group">
-							<label for="nombre">Nombre del Producto:</label>
-							<input type="text" name="" id="" class="form-control" th:field="*{nombre}" >
-						</div>
-					</div>
-					<div class="col-12 mb-3">
-						<div class="form-group">
-							<label for="marca">Marca del Producto:</label>
-							<input type="text" name="" id="" class="form-control" th:field="*{marca}" >
-						</div>
-					</div>
-					<div class="col-6 mb-3">
-						<div class="form-group">
-							<label for="precio">Precio Producto</label>
-							<input type="text" name="" id="" class="form-control" th:field="*{precio}" placeholder="precio">
-						</div>
-					</div>
-					<div class="col-6 mb-3">
-						<div class="form-group">
-							<label for="stock">Cantidad Disponible</label>
-							<input type="text" name="" id="" class="form-control" th:field="*{stock}" >
-						</div>
-					</div>
-					<div class="col-12 mb-3">
-						<div class="form-group">
-							<label for="">Selecciona el tipo de producto</label>
-							<select name="" id="" class="form-control"  th:field="*{tipoProd.id}"  >
-								<option th:each="tipo: ${listTipProducto}"  th:value="${tipo.id}" th:text="${tipo.nombre}" > </option>
-							</select>
-						</div>
-					</div>
-					<div class="moreDetails">
-						<div class="form-group w-100">
-							<label for="stock" class="mb-3 mr-4">Ingresar Detalles</label>
-							<button class="btn-agregar mb-3" type="button"><i class="fas fa-plus"></i></button>
-							<div class="form-group row " id="insertardetalles">
-								<div class="col-6 mb-3" id="templateDime">
-									<input type="text" name="tipoDetalle[]" id="" class="form-control" placeholder="Ejm:Dimensiones">
-								</div>
-								<div class="col-6 mb-3" id="templatedetalle" >
-									<input type="text" name="detalle[]" id="" class="form-control" placeholder="Ejm:180x40">
+		<div class="card text-white bg-secondary mb-3 mt-5">
+			<h1 class="card-header" th:text="${titulo}"></h1>
+			<div class="card-body">
+				<div class="formulario">
+					<form th:action="@{/administracion/form}" th:object="${productos}"
+						method="post">
+						<input type="hidden" name="" id="" class="form-control"
+							th:field="*{id}">
+						<div class="form-row">
+							<div class="col-6 mb-3">
+								<div class="form-group">
+									<label for="nombre">Codigo de Producto:</label> <input
+										type="text" name="" id="" class="form-control"
+										th:field="*{codigo}">
 								</div>
 							</div>
-						</div>
-					</div>
+							<div class="col-6 mb-3">
+								<div class="form-group">
+									<label for="nombre">Nombre del Producto:</label> <input
+										type="text" name="" id="" class="form-control"
+										th:field="*{nombre}">
+								</div>
+							</div>
+							<div class="col-6 mb-3">
+								<div class="form-group">
+									<label for="marca">Marca del Producto:</label> <input
+										type="text" name="" id="" class="form-control"
+										th:field="*{marca}">
+								</div>
+							</div>
+							
+							<div class="col-6 mb-3">
+								<div class="form-group">
+									<label for="">Selecciona el tipo de producto</label> <select
+										name="" id="" class="form-control" th:field="*{tipoProd.id}">
+										<option th:each="tipo: ${listTipProducto}"
+											th:value="${tipo.id}" th:text="${tipo.nombre}"></option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="col-6 mb-3">
+								<div class="form-group">
+									<label for="precio">Precio Producto</label> <input type="text"
+										name="" id="" class="form-control" th:field="*{precio}"
+										placeholder="precio">
+								</div>
+							</div>
+							<div class="col-6 mb-3">
+								<div class="form-group">
+									<label for="stock">Cantidad Disponible</label> <input
+										type="text" name="" id="" class="form-control"
+										th:field="*{stock}">
+								</div>
+							</div>
+							<div class="moreDetails">
+								<div class="form-group w-100">
+									<label for="stock" class="mb-3 mr-4">Ingresar Detalles</label>
+									<button class="btn-agregar mb-3" type="button">
+										<i class="fas fa-plus"></i>
+									</button>
+									<div class="form-group row " id="insertardetalles">
+										<div class="col-6 mb-3" id="templateDime">
+											<input type="text" name="tipoDetalle[]" id=""
+												class="form-control" placeholder="Ejm:Dimensiones">
+										</div>
+										<div class="col-6 mb-3" id="templatedetalle">
+											<input type="text" name="detalle[]" id=""
+												class="form-control" placeholder="Ejm:180x40">
+										</div>
+									</div>
+								</div>
+							</div>
 
-					<div class="col-12 mt-3 d-flex justify-content-center">
-						<input type="submit" class="btn btn-primary" th:value="${'enviar'}">
-					</div>
+							<div class="col-12 mt-3 d-flex justify-content-center">
+								<input type="submit" class="btn btn-danger"
+									th:value="${'enviar'}">
+							</div>
+						</div>
+					</form>
 				</div>
-			</form>
+			</div>
 		</div>
 	</div>
 
