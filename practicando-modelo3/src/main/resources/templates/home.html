@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="layout/layout :: head">
+
+</head>
+<body>
+
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">WAYKI store</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a class="nav-link" th:href="@{/home}">Home
+							<span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/listarCategoria}">Categorias</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/listar}">CLientes</a>
+					</li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/listarProductos}">Productos</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/guardar-carrito}">(<label style="color: orange" th:text="${contador}"></label>)Carrito</a></li>
+					<form class="form-inline">
+						<input class="form-control mr-sm-2" type="search"
+							placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					</form>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Login </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#">ingresar</a> <a
+								class="dropdown-item" href="#">registrarse</a>
+						</div></li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="alert alert-success" th:if="${success != null}"
+			th:text="${success}"></div>
+		<div class="alert alert-warning" th:if="${warning != null}"
+			th:text="${warning}"></div>
+		<div class="alert alert-danger" th:if="${error != null}"
+			th:text="${error}"></div>
+		<div class="alert alert-info" th:if="${info != null}"
+			th:text="${info}"></div>
+
+	</header>
+
+	<div class="container mt-3">
+
+		<div class="row">
+		
+			<div class="col-sm-4" th:each="prod: ${productos}">
+				
+				<div class="card-header text-center">
+					<label th:text="${prod.nombre}"></label>
+				</div>
+				
+				<div class="card-body">
+					<label th:text="'S/.'+${prod.precio}"></label>
+					<img
+					th:src="${prod.foto}" width="200" height="180"
+					th:alt="${prod.foto}">
+				</div>
+				
+				<div class="card-footer text-center">
+					<label><a class="text-secondary" th:href="@{/ver/}+ ${prod.id}">ver mas</a></label>
+					<div>
+						<a th:href="@{/guardar-carrito/} + ${prod.id}" class="btn btn-outline-info">agregar a carrito</a>
+						<a class="btn btn-danger">comprar</a>
+					</div>
+				</div>
+				
+				<br>
+			
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+
+
+	<footer th:replace="layout/layout :: footer"> </footer>
+
+</body>
+</html>

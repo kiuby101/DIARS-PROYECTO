@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+
+<header th:replace="layout/layout :: header">
+
+</header>
+<div class="container">
+		<h1 class="text-primary border border-primary" th:text="${titulo}"></h1>
+
+		<form th:action="@{/formularioCategoria}" th:object="${categoria}" method="post">
+			<table class="table table-bordered">
+				<tr>
+					<td style="width:200px;">Nombre</td>
+					<td>
+						<input type="text" th:field="*{nombre}" class="form-control"/>
+					</td>
+				</tr>
+				<tr>
+					<td>Descripcion</td>
+					<td>
+						<input type="text" th:field="*{descripcion}" class="form-control"/>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="crear categoria" class="btn btn-primary"/></td>
+				</tr>
+			</table>
+			<input type="hidden" th:field="*{id}" />
+		</form>
+	</div>
+
+<footer th:replace="layout/layout :: footer">
+	
+	</footer>
+
+</body>
+</html>
