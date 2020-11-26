@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +21,11 @@ import com.loli.demo.models.entity.Cliente;
 
 //configurar la clase como un controlador
 @Controller
+@RequestMapping("/cliente")
 public class ClienteController {
+	
+	@Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 	
 	//busca el bin con esa interface (hace mas facil crear un objeto)
 	@Autowired
@@ -30,6 +36,7 @@ public class ClienteController {
 
 	//value : ruta
 	//method=RequestMethod.GET =  tipo de metodo de la peticion
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/listar", method=RequestMethod.GET)
 	//model : importa datos hacia la vista
 	public String listar(Model model) {
@@ -38,11 +45,11 @@ public class ClienteController {
 		//pasando el listado de clientes a la vista
 		model.addAttribute("clientes",clienteService.finAll());
 		//retornar el nombre de la lista
-		return "listar";
+		return "cliente/listar";
 	}
 	
-	
-	@RequestMapping(value="/form")
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="/crear") 
 	public String crear(Map<String, Object> model) {
 		//crear el objeto cliente
 		Cliente cliente = new Cliente();
@@ -50,10 +57,11 @@ public class ClienteController {
 		model.put("cliente", cliente);
 		//mandar el titulo a la vista
 		model.put("titulo", "Formulario de cliente");
-		return "form";
+		return "cliente/form";
 	}
 	
 	//enviar el id como parametro a la ruta
+		@Secured("ROLE_USER")
 		@RequestMapping(value="/form/{id}")
 		//@PathVariable= anotacion para que funcione el envio de parametro a la ruta
 		public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
@@ -64,21 +72,22 @@ public class ClienteController {
 				cliente = clienteService.findOne(id);
 				if(cliente == null) {
 					flash.addFlashAttribute("error", "El id del cliente no existe en la BD!");
-					return "redirect:/listar";
+					return "redirect:cliente/listar";
 				}
 			}else {
 				flash.addFlashAttribute("error", "El id del cliente no puede ser cero!");
-				return "redirect:/listar";
+				return "redirect:cliente/listar";
 			}
 			//pasar los datos del cliente a la vista
 			model.put("cliente", cliente);
 			//pasar titulo a la vista
 			model.put("titulo", "editar cliente");
-			return "form";
+			return "cliente/form";
 		}
 	
 	
 	//metodo que se encarga de procesar los datos que envia el usuario
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/form", method = RequestMethod.POST)
 	//recibir los datos del cliente
 	//@valid= habilitar la validacion
@@ -90,21 +99,28 @@ public class ClienteController {
 			//el cliente se pasa de manera automática siempre que se llame igual que el tipo de variable (no importan las mayusculas/minusculas)
 			model.addAttribute("titulo", "Formulario de cliente");
 			//retornamos la vista del formulario con los mensajes de error
-			return "form";
+			return "cliente/form";
 		}
 		
 		//variable para el mensaje , validando si edita o guarda
 		String mensajeFlash = (cliente.getId() != null)? "cliente editado con éxito!" : "cliente creado con éxito";
 		
+		String passEnc=passwordEncoder.encode(cliente.getPassword());
+		
+		cliente.setPassword(passEnc);
+
+
 		//guardar al objeto
 		clienteService.save(cliente);
+		
 		//mensage flash para mostrarlo al cliente
 		flash.addFlashAttribute("success", mensajeFlash);
 		//retornamos la vista redirigiendo al listar
-		return "redirect:listar";
+		return "redirect:cliente/listar";
 	}
 	
 	//enviar el id como parametro a la ruta
+	@Secured("ROLE_USER")
 	@RequestMapping(value="/eliminar/{id}")
 	//para que funcione el envio del parametro usar @pathvariable
 	public String eliminar(@PathVariable(value = "id") Long id,RedirectAttributes flash) {
@@ -116,7 +132,7 @@ public class ClienteController {
 			flash.addFlashAttribute("success", "Cliente eliminado con éxito!");
 		}
 		//redirigir a la vista listar
-		return "redirect:/listar";
+		return "redirect:cliente/listar";
 	}
 	
 	

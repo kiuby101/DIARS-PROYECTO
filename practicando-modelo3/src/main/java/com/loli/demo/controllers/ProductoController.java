@@ -2,6 +2,7 @@ package com.loli.demo.controllers;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ import com.loli.demo.models.entity.Categoria;
 import com.loli.demo.models.entity.Producto;
 
 @Controller
-
+@RequestMapping("/producto")
 public class ProductoController {
 
 	@Autowired 
@@ -25,7 +26,7 @@ public class ProductoController {
 	@Autowired
 	private ICategoriaService categoriaService;  
 	
-		
+	@Secured("ROLE_USER")
 	//método para ver las fotos y detalle del producto
 	@GetMapping(value="/ver/{id}")
 	public String ver(@PathVariable(value = "id") Long id, Map<String , Object> model) {
@@ -38,24 +39,27 @@ public class ProductoController {
 		model.put("producto",producto);
 		model.put("titulo","detalle del producto:" + producto.getNombre());
 		
-		return "ver";
+		return "producto/ver";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/listarProductos", method = RequestMethod.GET)
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Listado de productos");
 		model.addAttribute("productos", productoService.findAll());
-		return "listarProductos";
+		return "producto/listarProductos";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("/formularioProd")
 	public String Registrar(Model model) {
 		Producto productos = new Producto();
 		model.addAttribute("titulo", "registro");
 		model.addAttribute("productos", productos);
-		return "formularioProd";
+		return "producto/formularioProd";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/formularioProd/{id}")
 	public String editar(@PathVariable(name="id")Long id, Model model) {
 		Producto productos = null;
@@ -67,27 +71,30 @@ public class ProductoController {
 		
 		model.addAttribute("titulo", "Editar Producto");
 		model.addAttribute("productos", productos);
-		return "formularioProd";
+		return "producto/formularioProd";
 		
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/formularioProd",method = RequestMethod.POST)
 	public String guardarProd(Producto producto, Model model) {
 		productoService.guardarProd(producto);
-		return "redirect:listarProductos";
+		return "redirect:producto/listarProductos";
 		
 	}
 	
-	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/eliminarProd/{id}")
 	public String eliminar(@PathVariable(value = "id")Long id) {
 		if(id>0) {
 			productoService.delete(id);		
 		}
-		return "redirect:/listarProductos";
+		return "redirect:producto/listarProductos";
 	}
 	
 	//selector categoria
+	
+	@Secured("ROLE_ADMIN")
 	@ModelAttribute("listarCate")
 	public List<Categoria> categoria(){
 		return categoriaService.findAll();

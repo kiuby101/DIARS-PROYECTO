@@ -15,8 +15,8 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a class="nav-link" th:href="@{/home}">Home
-							<span class="sr-only">(current)</span>
+					<li class="nav-item active"><a class="nav-link"
+						th:href="@{/home}">Home <span class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/listarCategoria}">Categorias</a></li>
@@ -25,7 +25,9 @@
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/listarProductos}">Productos</a></li>
 					<li class="nav-item"><a class="nav-link"
-						th:href="@{/guardar-carrito}">(<label style="color: orange" th:text="${contador}"></label>)Carrito</a></li>
+						th:href="@{/guardar-carrito}">(<label style="color: orange"
+							th:text="${contador}"></label>)Carrito
+					</a></li>
 					<form class="form-inline">
 						<input class="form-control mr-sm-2" type="search"
 							placeholder="Search" aria-label="Search">
@@ -57,30 +59,31 @@
 	<div class="container mt-3">
 
 		<div class="row">
-		
+
 			<div class="col-sm-4" th:each="prod: ${productos}">
-				
+
 				<div class="card-header text-center">
 					<label th:text="${prod.nombre}"></label>
 				</div>
-				
+
 				<div class="card-body">
-					<label th:text="'S/.'+${prod.precio}"></label>
-					<img
-					th:src="${prod.foto}" width="200" height="180"
-					th:alt="${prod.foto}">
+					<label th:text="'S/.'+${prod.precio}"></label> <img
+						th:src="${prod.foto}" width="200" height="180"
+						th:alt="${prod.foto}">
 				</div>
-				
+
 				<div class="card-footer text-center">
-					<label><a class="text-secondary" th:href="@{/ver/}+ ${prod.id}">ver mas</a></label>
+					<label><a class="text-secondary"
+						th:href="@{/ver/}+ ${prod.id}">ver mas</a></label>
 					<div>
-						<a th:href="@{/guardar-carrito/} + ${prod.id}" class="btn btn-outline-info">agregar a carrito</a>
-						<a class="btn btn-danger">comprar</a>
+						<a th:href="@{carrito/guardar-carrito/} + ${prod.id}"
+							class="btn btn-outline-info">agregar a carrito</a> <a
+							th:href="@{carrito/comprar/} + ${prod.id}" class="btn btn-danger">comprar</a>
 					</div>
 				</div>
-				
+
 				<br>
-			
+
 			</div>
 
 		</div>

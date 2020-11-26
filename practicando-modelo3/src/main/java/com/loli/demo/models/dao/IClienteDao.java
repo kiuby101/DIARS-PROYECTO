@@ -1,21 +1,16 @@
 package com.loli.demo.models.dao;
 
-import java.util.List;
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.loli.demo.models.entity.Cliente;
 
-public interface IClienteDao {
-	//lista de cliente de la clase Cliente
-	//finall(): retornar todos
-	public List<Cliente> finAll();
+public interface IClienteDao extends JpaRepository<Cliente, Long>{
 	
-	//guardar un nuevo cliente en la db
-	//recibe el objeto cliente
-	public void save(Cliente cliente);
+	@Query(value = "SELECT * FROM clientes WHERE email=?1",nativeQuery = true)
+	public Cliente findByEmail(String email);
 	
-	//funcion para buscar al usuario mediante su id
-	public Cliente findOne(Long id);
 	
-	//funcion para eliminar al usuario mediante su id
-	public void delete(Long id);
 }

@@ -18,15 +18,19 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a class="nav-link" th:href="@{/home}">Home
+					<li class="nav-item active"><a class="nav-link" th:href="@{/carrito/home}">Home
 							<span class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item"><a class="nav-link"
-						th:href="@{/listarCategoria}">Categorias</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/listar}">CLientes</a>
+						th:href="@{/categoria/listarCategoria}">Categorias</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/cliente/listar}">CLientes</a>
 					</li>
 					<li class="nav-item"><a class="nav-link"
-						th:href="@{/listarProductos}">Productos</a></li>
+						th:href="@{/producto/listarProductos}">Productos</a></li>
+						<li class="nav-item"><a class="nav-link"
+						th:href="@{/carrito/guardar-carrito}">(<label style="color: orange"
+							th:text="${contador}"></label>)Carrito
+					</a></li>
 					<form class="form-inline">
 						<input class="form-control mr-sm-2" type="search"
 							placeholder="Search" aria-label="Search">
@@ -40,6 +44,12 @@
 							<a class="dropdown-item" href="#">ingresar</a> <a
 								class="dropdown-item" href="#">registrarse</a>
 						</div></li>
+						<li> 
+						<form class="form-inline" id="logoutForm" th:action="@{/logout}" method="POST" >
+				          <button class="btn btn-outline-success my-2 my-sm-0" sec:authorize="isAuthenticated()" onclick="document.getElementById('logoutForm').submit()" type="submit">Cerrar Sesión</button>
+				          <input class="form-control mr-sm-2" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				        </form>
+						</li>
 				</ul>
 			</div>
 		</nav>

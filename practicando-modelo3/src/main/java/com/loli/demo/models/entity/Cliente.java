@@ -38,7 +38,13 @@ public class Cliente implements Serializable {
 	//denotar que sea correcto el formato email
 	//importante que sea importado de javax.validation.constraints
 	@Email
+	@Column(unique = true)
 	private String email;
+	
+	
+	private String roles;
+	
+	private String password;
 
 	//validar que sea diferente de nulo
 	@NotNull
@@ -97,6 +103,28 @@ public class Cliente implements Serializable {
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
+
+	
+	
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
 
 	private static final long serialVersionUID = 1L;
 

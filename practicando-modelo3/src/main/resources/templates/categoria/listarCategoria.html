@@ -10,7 +10,7 @@
 
 <h1 class="text-primary text-center" th:text="${titulo}"></h1>
 	<div class="container">
-		<p><a th:href="@{/formularioCategoria}" class="btn btn-success btn-xs">Crear Categoria</a></p>
+		<p><a th:href="@{/categoria/formularioCategoria}" class="btn btn-success btn-xs">Crear Categoria</a></p>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -27,10 +27,10 @@
 					<td class="text-center" th:text="${category.nombre}"></td>
 					<td class="text-center" th:text="${category.descripcion}"></td>
 					<td class="text-center"><a
-						th:href="@{/formularioCategoria/} + ${category.id}"
+						th:href="@{/categoria/formularioCategoria/} + ${category.id}"
 						class="btn btn-primary btn-xs">Editar</a></td>
 					<td class="text-center">
-						<a class="btn btn-danger btn-xs " th:href="@{/eliminarCatagoria/}+${category.id}" onclick="return confirm('Estás seguro que quieres eliminar?');">eliminar</a></td>
+						<a class="btn btn-danger btn-xs " th:href="@{/categoria/eliminarCatagoria/}+${category.id}" onclick="return confirm('Estás seguro que quieres eliminar?');">eliminar</a></td>
 				</tr>
 			</tbody>
 		</table>

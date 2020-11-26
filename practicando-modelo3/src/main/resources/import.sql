@@ -1,0 +1,2 @@
+INSERT INTO clientes(id,nombre,apellido,email,roles,password,create_at) VALUES(1,'Luis','Loli','loli@luis.com','ROLE_ADMIN','$2a$10$oAmfDWmEjNHVfPlO3jtx1.ez07pwyc939SEnp6kpIOFuJbGnP1yfK','2017-08-08');
+INSERT INTO clientes(id,nombre,apellido,email,roles,password,create_at) VALUES(2,'Luis','Loli','guest@root.com','ROLE_USER','$2a$10$oAmfDWmEjNHVfPlO3jtx1.ez07pwyc939SEnp6kpIOFuJbGnP1yfK','2017-08-08');

@@ -11,7 +11,7 @@
 <div class="container">
 		<h1 class="text-primary border border-primary" th:text="${titulo}"></h1>
 
-		<form th:action="@{/formularioCategoria}" th:object="${categoria}" method="post">
+		<form th:action="@{categoria/formularioCategoria}" th:object="${categoria}" method="post">
 			<table class="table table-bordered">
 				<tr>
 					<td style="width:200px;">Nombre</td>

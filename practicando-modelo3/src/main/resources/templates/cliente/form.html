@@ -11,7 +11,7 @@
 	<div class="container">
 		<h1 class="text-primary border border-primary" th:text="${titulo}"></h1>
 
-		<form th:action="@{/form}" th:object="${cliente}" method="post">
+		<form th:action="@{/cliente/form}" th:object="${cliente}" method="post">
 			<table class="table table-bordered">
 				<tr>
 					<td style="width:200px;">Nombre</td>
@@ -35,12 +35,27 @@
 					</td>
 				</tr>
 				<tr>
+					<td>contraseña</td>
+					<td>
+						<input type="password" th:field="*{password}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+					</td>
+				</tr>
+				<tr>
+					<td>Rol</td>
+					<td>
+						<input type="text" th:field="*{roles}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+						<small class="form-text text-danger" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></small>
+					</td>
+				</tr>
+				<tr>
 					<td>Fecha</td>
 					<td>
 						<input type="text" th:field="*{createAt}" class="form-control" th:errorclass="'form-control alert-danger'"/>
 						<small class="form-text text-danger" th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small>
 					</td>
 				</tr>
+				
 				<tr>
 					<td><input type="submit" value="crear cliente" class="btn btn-primary"/></td>
 				</tr>
