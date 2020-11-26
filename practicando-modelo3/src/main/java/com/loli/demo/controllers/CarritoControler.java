@@ -24,7 +24,7 @@ public class CarritoControler {
 	private ICarritoService carritoService;
 	
 	//vista de productos para el usuario
-	@Secured("ROLE_ADMIN")
+	@Secured("ROLE_USER")
 	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public String index(Model model) {
 		model.addAttribute("productos", productoService.findAll());
@@ -49,6 +49,7 @@ public class CarritoControler {
 		carritoService.save(carrito);
 		return "redirect:carrito/home";
 	}
+	
 	@Secured("ROLE_USER")
 	@RequestMapping(value="/guardar-carrito", method = RequestMethod.GET)
 	public String listarcarrito(Model model) {

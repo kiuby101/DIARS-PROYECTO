@@ -116,7 +116,7 @@ public class ClienteController {
 		//mensage flash para mostrarlo al cliente
 		flash.addFlashAttribute("success", mensajeFlash);
 		//retornamos la vista redirigiendo al listar
-		return "redirect:cliente/listar";
+		return "cliente/listar";
 	}
 	
 	//enviar el id como parametro a la ruta

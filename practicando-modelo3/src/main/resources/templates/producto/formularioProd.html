@@ -9,7 +9,7 @@
 </header>
 <h1 th:text="${titulo}" class="mb-4 text-center"></h1>
 		<div class="container">
-			<form th:action="@{/formularioProd}" th:object="${productos}" method="post">
+			<form th:action="@{/producto/formularioProd}" th:object="${productos}" method="post">
 				<input type="hidden" name="" id="" class="form-control" th:field="*{id}"  >
 				<div class="form-row">
 					<div class="col-6 mb-3">

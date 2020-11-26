@@ -79,7 +79,7 @@ public class ProductoController {
 	@RequestMapping(value="/formularioProd",method = RequestMethod.POST)
 	public String guardarProd(Producto producto, Model model) {
 		productoService.guardarProd(producto);
-		return "redirect:producto/listarProductos";
+		return "producto/listarProductos";
 		
 	}
 	
@@ -89,7 +89,7 @@ public class ProductoController {
 		if(id>0) {
 			productoService.delete(id);		
 		}
-		return "redirect:producto/listarProductos";
+		return "producto/listarProductos";
 	}
 	
 	//selector categoria

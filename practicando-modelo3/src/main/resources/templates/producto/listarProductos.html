@@ -9,7 +9,7 @@
 </header>
 	<h1 class="text-primary text-center" th:text="${titulo}"></h1>
 	<div class="container">
-		<p><a th:href="@{/formularioProd}" class="btn btn-success btn-xs">Crear Producto</a></p>
+		<p><a th:href="@{/producto/formularioProd}" class="btn btn-success btn-xs">Crear Producto</a></p>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -25,17 +25,17 @@
 			</thead>
 			<tbody>
 				<tr th:each="prod: ${productos}">
-					<td><a class="btn btn-info btn-xs" th:href="@{/ver/}+ ${prod.id}" th:text="${prod.codigo}"></a></td>
+					<td><a class="btn btn-info btn-xs" th:href="@{/producto/ver/}+ ${prod.id}" th:text="${prod.codigo}"></a></td>
 					<td class="text-center" th:text="${prod.nombre}"></td>
 					<td class="text-center" th:text="${prod.marca}"></td>
 					<td class="text-center" th:text="'S/.'+${prod.precio}"></td>
 					<td class="text-center" th:text="${prod.stock}"></td>
 					<td class="text-center" th:text="${prod.categoria.nombre}"></td>
 					<td class="text-center"><a
-						th:href="@{/formularioProd/} + ${prod.id}"
+						th:href="@{/producto/formularioProd/} + ${prod.id}"
 						class="btn btn-primary btn-xs">Editar</a></td>
 					<td class="text-center"><a
-						th:href="@{/eliminarProd/} + ${prod.id}"
+						th:href="@{/producto/eliminarProd/} + ${prod.id}"
 						class="btn btn-danger btn-xs" onclick="return confirm('Estás seguro que quieres eliminar el producto?')">Eliminar</a>
 					</td>
 				</tr>

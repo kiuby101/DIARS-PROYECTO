@@ -19,7 +19,7 @@ public class CategoriaController {
 	private ICategoriaService categoriaService;
 	
 	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="/listarCategoria", method=RequestMethod.GET)
+	@RequestMapping("/listarCategoria")
 	public String listar(Model model) {
 		model.addAttribute("titulo","Listado categoria");
 		model.addAttribute("categoria",categoriaService.findAll());
@@ -27,7 +27,7 @@ public class CategoriaController {
 	}
 	
 	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="/formularioCategoria")
+	@RequestMapping("/formularioCategoria")
 	public String crear(Map<String, Object> model) {
 		Categoria categoria = new Categoria();
 		model.put("categoria", categoria);
@@ -36,7 +36,7 @@ public class CategoriaController {
 	}
 	
 	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="/formularioCategoria/{id}")
+	@RequestMapping("/formularioCategoria/{id}")
 	public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model) {
 		
 		Categoria categoria = null;
@@ -53,18 +53,18 @@ public class CategoriaController {
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/formularioCategoria", method = RequestMethod.POST)
-	public String guardar(Categoria categoria, Model model) {
+	public String guardar(Categoria categoria) {
 		categoriaService.guardarCategoria(categoria);
 		return "categoria/listarCategoria";
 	}
 	
 	@Secured("ROLE_ADMIN")
-	@RequestMapping(value = "/eliminarCatagoria/{id}")
+	@RequestMapping("/eliminarCatagoria/{id}")
 	public String eliminar(@PathVariable(value = "id") Long id) {
 		if(id>0) {
 			categoriaService.eliminarCategoria(id);
 		}
-		return "redirect:categoria/listarCategoria";
+		return "redirect:/categoria/listarCategoria";
 	}
 	
 	
