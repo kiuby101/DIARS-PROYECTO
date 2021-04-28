@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout/layout :: head">
 
 </head>
@@ -18,35 +18,41 @@
 					<li class="nav-item active"><a class="nav-link"
 						th:href="@{/carrito/home}">Home <span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link"
+					<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a class="nav-link"
 						th:href="@{/categoria/listarCategoria}">Categorias</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/listar}">CLientes</a>
+					<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a class="nav-link" th:href="@{/cliente/listar}">CLientes</a>
 					</li>
-					<li class="nav-item"><a class="nav-link"
+					<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a class="nav-link"
 						th:href="@{/producto/listarProductos}">Productos</a></li>
 					<li class="nav-item"><a class="nav-link"
-						th:href="@{/carrito/guardar-carrito}">(<label style="color: orange"
-							th:text="${contador}"></label>)Carrito
+						th:href="@{/carrito/guardar-carrito}">(<label
+							style="color: orange" th:text="${contador}"></label>)Carrito
 					</a></li>
 					<form class="form-inline">
 						<input class="form-control mr-sm-2" type="search"
 							placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 					</form>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> Login </a>
+					<li  sec:authorize="isAuthenticated()" class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span sec:authentication="name"></span>
+					</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">ingresar</a> <a
-								class="dropdown-item" href="#">registrarse</a>
+							<a class="dropdown-item" href="#">
+								<form class="form-inline" id="logoutForm" th:action="@{/logout}"
+									method="POST">
+									<button class="btn btn-outline-success my-2 my-sm-0"
+										onclick="document.getElementById('logoutForm').submit()"
+										type="submit">Cerrar Sesión</button>
+									<input class="form-control mr-sm-2" type="hidden"
+										th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+								</form>
+							</a>
 						</div></li>
-						<li> 
-						<form class="form-inline" id="logoutForm" th:action="@{/logout}" method="POST" >
-				          <button class="btn btn-outline-success my-2 my-sm-0" sec:authorize="isAuthenticated()" onclick="document.getElementById('logoutForm').submit()" type="submit">Cerrar Sesión</button>
-				          <input class="form-control mr-sm-2" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-				        </form>
-						</li>
+					<li class="navbar-nav navbar-right ml-2 "
+						sec:authorize="!isAuthenticated()"><a
+						class="btn btn-outline-primary" th:href="@{/login}">ingresar</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -84,7 +90,8 @@
 					<div>
 						<a th:href="@{/carrito/guardar-carrito/} + ${prod.id}"
 							class="btn btn-outline-info">agregar a carrito</a> <a
-							th:href="@{/carrito/comprar/} + ${prod.id}" class="btn btn-danger">comprar</a>
+							th:href="@{/carrito/comprar/} + ${prod.id}"
+							class="btn btn-danger">comprar</a>
 					</div>
 				</div>
 

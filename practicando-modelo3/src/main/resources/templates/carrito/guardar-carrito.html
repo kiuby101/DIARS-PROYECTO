@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout/layout :: head">
 
 </head>
@@ -17,11 +17,11 @@
 					<li class="nav-item active"><a class="nav-link" th:href="@{/carrito/home}">Home
 							<span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link"
+					<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a class="nav-link"
 						th:href="@{/categoria/listarCategoria}">Categorias</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/cliente/listar}">CLientes</a>
+					<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a class="nav-link" th:href="@{/cliente/listar}">CLientes</a>
 					</li>
-					<li class="nav-item"><a class="nav-link"
+					<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a class="nav-link"
 						th:href="@{/producto/listarProductos}">Productos</a></li>
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/carrito/home}">Seguir comprando</a></li>
@@ -30,14 +30,26 @@
 							placeholder="Search" aria-label="Search">
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 					</form>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> Login </a>
+					<li  sec:authorize="isAuthenticated()" class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span sec:authentication="name"></span>
+					</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">ingresar</a> <a
-								class="dropdown-item" href="#">registrarse</a>
+							<a class="dropdown-item" href="#">
+								<form class="form-inline" id="logoutForm" th:action="@{/logout}"
+									method="POST">
+									<button class="btn btn-outline-success my-2 my-sm-0"
+										onclick="document.getElementById('logoutForm').submit()"
+										type="submit">Cerrar Sesión</button>
+									<input class="form-control mr-sm-2" type="hidden"
+										th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+								</form>
+							</a>
 						</div></li>
+					<li class="navbar-nav navbar-right ml-2 "
+						sec:authorize="!isAuthenticated()"><a
+						class="btn btn-outline-primary" th:href="@{/login}">ingresar</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -76,9 +88,8 @@
 						<td class="text-center" th:text="'S/.'+${carrit.precio}"></td>
 						<td class="text-center" th:text="${carrit.cantidad}"></td>
 						<td class="text-center" th:text="${carrit.subtotal}"></td>
-						<td class="text-center"> 
-							<a href="$">eliminar</a>
-							<a href="$">editar</a>
+						<td class="text-center">
+							<a href="$" >eliminar</a>
 						</td>
 					</tr>					
 				</tbody>
@@ -94,8 +105,9 @@
 					<input type=text readonly=""  th:value="${total}" class="form-control"> 
 				</div>
 				<div class="card-footer">
-					<a href="#" class="btn btn-info btn-block">Realizar Pago</a>
+					<a th:if="${generado != true}" th:href="@{/compras/ProcesoPago}" class="btn btn-info btn-block">Realizar Pago</a>
 					<a href="#" class="btn btn-danger btn-block">Generar Compra</a>
+					<a th:href="@{/carrito/cancelarTodo}" class="btn btn-warning btn-block" onclick="return confirm('Estás seguro que quieres cancelar?')">Cancelar Compra</a>
 				</div>
 			</div>
 		</div>

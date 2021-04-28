@@ -55,4 +55,10 @@ public class ClienteServiceImpl  implements IClienteService{
 		clienteDao.delete(cliente);
 	}
 
+	@Override
+	@Transactional
+	public Cliente findByEmail(String mail) {
+		return clienteDao.findByEmail(mail);
+	}
+
 }

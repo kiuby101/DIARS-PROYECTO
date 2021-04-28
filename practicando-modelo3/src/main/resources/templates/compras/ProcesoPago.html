@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="layout/layout :: head">
+
+</head>
+<body>
+
+	<header th:replace="layout/layout :: header"> </header>
+	<h1 th:text="${titulo}" class="mb-4 mt-4 text-center"></h1>
+	<div class="container">
+		<form th:action="@{/compras/ProcesoPago}" th:object="${compras}"
+			method="post">
+			<div class="form-row">
+				<div class="col-6 mb-3">
+					<div class="form-group">
+						<label>cliente:</label>
+						 <input th:value="${cliente.nombre}+' '+ ${cliente.apellido}" class="form-control" disabled="disabled">
+					</div>
+				</div>
+				<div class="col-6 mb-3">
+					<div class="form-group">
+						<label>email:</label> 
+						<input th:value="${cliente.email}" class="form-control" disabled="disabled">
+					</div>
+				</div>
+				<div class="col-6 mb-3">
+					<div class="form-group">
+						<label for="medio_pago">medio de pago</label> 
+						<select name="" id="" class="form-control" th:field="*{medio_pago}">
+							<option value="transferencia">transferencia</option>
+							<option value="efectivo">efectivo</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-6 mb-3">
+					<div class="form-group">
+						<label for="medio_envio">medio de envio</label> 
+						<select name="" id="" class="form-control" th:field="*{medio_envio}">
+							<option value="delivery">delivery</option>
+							<option value="recoger">recoger</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-6 mb-3">
+					<div class="form-group">
+						<label for="precio">total a pagar:</label> 
+						<input class="form-control" th:value="${total}" disabled="disabled">
+					</div>
+				</div>
+				<div class="col-6 mb-3">
+					<div class="form-group">
+						<label for="stock">cantidad de productos a comprar</label> 
+						<input class="form-control" th:value="${cantidad}" disabled="disabled">
+					</div>
+				</div>
+				
+				<div class="col-12 mt-3 d-flex justify-content-center">
+					<input type="submit" class="btn btn-danger mr-4"onclick="return confirm('Estás seguro que quieres cancelar?')" th:value="${'cancelar'}" >
+					<input type="submit" class="btn btn-primary" th:value="${'procesar pago'}">
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"> </footer>
+
+</body>
+</html>

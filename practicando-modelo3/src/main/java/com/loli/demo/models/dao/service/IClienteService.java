@@ -18,4 +18,6 @@ public interface IClienteService {
 		
 		//funcion para eliminar al usuario mediante su id
 		public void delete(Long id);
+		
+		public Cliente findByEmail(String mail);
 }

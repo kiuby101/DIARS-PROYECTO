@@ -2,6 +2,8 @@ package com.loli.demo.controllers;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,9 @@ public class ProductoController {
 	
 	@Autowired
 	private ICategoriaService categoriaService;  
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@Secured("ROLE_USER")
 	//método para ver las fotos y detalle del producto
@@ -59,12 +64,14 @@ public class ProductoController {
 		return "producto/formularioProd";
 	}
 	
+	double aux= 0.0;
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/formularioProd/{id}")
 	public String editar(@PathVariable(name="id")Long id, Model model) {
 		Producto productos = null;
 		if(id>0) {
 			productos=productoService.buscarProd(id);
+			aux= productos.getPrecio();
 		}else {
 			return "redirect:listarProductos ";
 		}
@@ -79,6 +86,11 @@ public class ProductoController {
 	@RequestMapping(value="/formularioProd",method = RequestMethod.POST)
 	public String guardarProd(Producto producto, Model model) {
 		productoService.guardarProd(producto);
+		if(producto.getPrecio() != aux && aux!=0.0) {
+			double prod = producto.getPrecio();
+			SendMail(aux, prod, producto);
+			aux=0.0;
+		}
 		return "producto/listarProductos";
 		
 	}
@@ -99,4 +111,20 @@ public class ProductoController {
 	public List<Categoria> categoria(){
 		return categoriaService.findAll();
 	}
+	
+	public void SendMail(double aux, double prod, Producto producto) {
+		SimpleMailMessage message= new SimpleMailMessage();
+		message.setFrom("luislolimott@gmail.com");
+		message.setTo("luislolimott@gmail.com");
+		
+		String mailContent="Precio anterior: "+aux +"  /-/ "+ "precio cambiado: "+prod;
+		String mailSubject="Cambios en el precio del producto  "+producto.getNombre();
+		
+		message.setSubject(mailSubject);
+		message.setText(mailContent);
+		
+		mailSender.send(message);
+		
+	}
+	
 }
